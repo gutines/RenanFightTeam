@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Despesas" table="despesas" catalog="academia" optimistic-lock="version">
+        <id name="idDespesa" type="java.lang.Integer">
+            <column name="idDespesa" />
+        </id>
+        <property name="descricaoDespesa" type="string">
+            <column name="descricaoDespesa" length="45" not-null="true" />
+        </property>
+        <property name="parcelamento" type="boolean">
+            <column name="parcelamento" not-null="true" />
+        </property>
+        <property name="parcelaTotais" type="java.lang.Integer">
+            <column name="parcelaTotais" />
+        </property>
+        <property name="parcelaAtual" type="java.lang.Integer">
+            <column name="parcelaAtual" />
+        </property>
+        <property name="diaVencimento" type="int">
+            <column name="diaVencimento" not-null="true" />
+        </property>
+        <property name="dataPegamento" type="date">
+            <column name="dataPegamento" length="10" />
+        </property>
+        <set name="despesaspagasAcademias" table="despesaspagas_academia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDespesas" not-null="true" />
+            </key>
+            <one-to-many class="model.DespesaspagasAcademia" />
+        </set>
+    </class>
+</hibernate-mapping>

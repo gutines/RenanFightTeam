@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Usuarios" table="usuarios" catalog="academia" optimistic-lock="version">
+        <id name="idUsuario" type="string">
+            <column name="idUsuario" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="senha" type="string">
+            <column name="senha" length="10" not-null="true">
+                <comment>Senha do usu&#225;rio de acesso ao sistema</comment>
+            </column>
+        </property>
+        <property name="dataDeInclusao" type="date">
+            <column name="dataDeInclusao" length="10" not-null="true">
+                <comment>Data de inclus&#227;o do usu&#225;rio no sistema</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

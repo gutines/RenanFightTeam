@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{menuInicialImpl.menuInicialBean.TITLE}</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="frm_rft">
+		<p:outputPanel >
+			<p:growl id="messages" />
+
+			<p:menubar>
+				<p:submenu label="Sistema" icon="ui-icon-document">
+					<p:submenu label="Usuarios" icon="ui-icon-contact">
+						<p:menuitem id="mni_novo_usuario" value="Novo" icon="ui-icon-plus"
+							action="#{renanFightTeam.novoUsuario()}"
+							update="out_p_componente" ajax="false" />
+						<p:menuitem value="Consultar" icon="ui-icon-search" url="#" />
+						<p:menuitem value="Alterar" icon="ui-icon-pencil" url="#" />
+						<p:menuitem value="Excluir" icon="ui-icon-trash" url="#" />
+					</p:submenu>
+
+					<p:menuitem value="Open" url="#" />
+					<p:separator />
+					<p:menuitem value="Quit" url="#" />
+				</p:submenu>
+
+				<p:submenu label="Alunos" icon="ui-icon-person">
+					<p:submenu label="Cadastro" icon="ui-icon-tag">
+						<p:menuitem id="mni_novo_aluno" value="Novo" icon="ui-icon-plus"
+							action="#{menuInicialImpl.novoAluno()}" update="out_p_componente"
+							ajax="false" />
+						<p:menuitem value="Consultar" icon="ui-icon-search"
+							action="#{renanFightTeam.filtroPesquisa()}"
+							update="out_p_componente" ajax="false" />
+						<p:menuitem value="Alterar" icon="ui-icon-pencil"
+							action="#{renanFightTeam.filtroPesquisa()}"
+							update="out_p_componente" ajax="false" />
+						<p:menuitem value="Excluir" icon="ui-icon-trash"
+							action="#{renanFightTeam.filtroPesquisa()}"
+							update="out_p_componente" ajax="false" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:submenu label="Help" icon="ui-icon-help">
+					<p:menuitem value="Contents" url="#" />
+					<p:submenu label="Search" icon="ui-icon-search">
+						<p:submenu label="Text">
+							<p:menuitem value="Workspace" url="#" />
+						</p:submenu>
+						<p:menuitem value="File" url="#" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:submenu label="Actions" icon="ui-icon-gear">
+					<p:submenu label="Ajax" icon="ui-icon-refresh">
+						<p:menuitem value="Save" actionListener="#{menuView.save}"
+							icon="ui-icon-disk" update="messages" />
+						<p:menuitem value="Update" actionListener="#{menuView.update}"
+							icon="ui-icon-arrowrefresh-1-w" update="messages" />
+					</p:submenu>
+					<p:submenu label="Non-Ajax" icon="ui-icon-newwin">
+						<p:menuitem value="Delete" actionListener="#{menuView.delete}"
+							icon="ui-icon-close" update="messages" ajax="false" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:menuitem value="Quit" url="#{menuInicialImpl.quit()}"
+					icon="ui-icon-close" update="out_p_componente" />
+
+				<f:facet name="options">
+					<p:inputText style="margin-right:10px" placeholder="Search" />
+					<p:commandButton type="button" value="Logout"
+						icon="ui-icon-extlink" />
+				</f:facet>
+			</p:menubar>
+		</p:outputPanel>
+		<ui:debug />
+
+		<ui:insert>
+			<p:outputPanel id="out_p_componente" >
+				<ui:include src="#{menuInicialImpl.menuInicialBean.componente}" />
+			</p:outputPanel>
+		</ui:insert>
+
+	</h:form>
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Modalidadescontratadas" table="modalidadescontratadas" catalog="academia" optimistic-lock="version">
+        <composite-id name="id" class="model.ModalidadescontratadasId">
+            <key-property name="idModalidade" type="int">
+                <column name="idModalidade" />
+            </key-property>
+            <key-property name="idAluno" type="int">
+                <column name="idAluno" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="alunos" class="model.Alunos" update="false" insert="false" fetch="select">
+            <column name="idAluno" not-null="true" />
+        </many-to-one>
+        <many-to-one name="modalidades" class="model.Modalidades" update="false" insert="false" fetch="select">
+            <column name="idModalidade" not-null="true" />
+        </many-to-one>
+        <property name="dataDeContratacao" type="date">
+            <column name="dataDeContratacao" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

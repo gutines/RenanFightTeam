@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Alunos" table="alunos" catalog="academia" optimistic-lock="version">
+        <id name="idAlunos" type="java.lang.Integer">
+            <column name="idAlunos" />
+        </id>
+        <many-to-one name="endereco" class="model.Endereco" fetch="select">
+            <column name="cep" not-null="true" />
+        </many-to-one>
+        <many-to-one name="planos" class="model.Planos" fetch="select">
+            <column name="idPlano" not-null="true">
+                <comment>ID-PLANO: Plano escolhido pelo aluno, para cada plano ser&#225; executado um calculo diferente para contabiliza&#231;&#227;o do caixa.</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="statusgeral" class="model.Statusgeral" fetch="select">
+            <column name="statusAluno" not-null="true">
+                <comment>STATUS DO ALUNO: Dever&#225; ser informado o status do aluno. 0 = Aluno ativo; 1 = Aluno inativo (Solicitou o cancelamento); 2 = Aluno bloqueado (Com
+                mensalidades em atrazo), cada academia tratar&#225; de forma diferenciada,ex: Aluno bloqueado apenas depois de 3 meses de inadimpl&#234;ncia. 3 = Aluno expulso,
+                Devido m&#225; conduta ou alguma falta grave e n&#227;o dever&#225; mais fazer parte do corpo de alunos.</comment>
+            </column>
+        </many-to-one>
+        <property name="nomeCompleto" type="string">
+            <column name="nomeCompleto" length="120" not-null="true">
+                <comment>NOME COMPLETO: Nome completo do aluno, tem a composi&#231;&#227;o de nome, nome do meio e sobrenome.</comment>
+            </column>
+        </property>
+        <property name="apelido" type="string">
+            <column name="apelido" length="30">
+                <comment>APELIDO: Apelido do aluno, como foi batizado na academia ou que prefere ser chamado.</comment>
+            </column>
+        </property>
+        <property name="dataDeNascimento" type="date">
+            <column name="dataDeNascimento" length="10" not-null="true">
+                <comment>DATA DE NASCIMENTO: Data de nascimento do aluno.</comment>
+            </column>
+        </property>
+        <property name="rg" type="string">
+            <column name="rg" length="15" not-null="true">
+                <comment>RG: Documento de registro geral do aluno.</comment>
+            </column>
+        </property>
+        <property name="cpf" type="string">
+            <column name="cpf" length="15" not-null="true">
+                <comment>CPF: Documento de CPF do aluno. Em caso do aluno ser menor de idade, ser&#225; necess&#225;rio informar um respons&#225;vel, neste caso, o cpf dever&#225;
+                ser do respons&#225;vel.</comment>
+            </column>
+        </property>
+        <property name="responsavel" type="java.lang.Boolean">
+            <column name="responsavel">
+                <comment>RESPONSAVEL: Caso o aluno menor de idade, este campo dever&#225; estar informado como VERDADEIRO.</comment>
+            </column>
+        </property>
+        <property name="nomeResponsavel" type="string">
+            <column name="nomeResponsavel" length="120">
+                <comment>NOME RESPONSAVEL: Caso o aluno menor de idade, este campo dever&#225; estar informado com o nome completo do respons&#225;vel.</comment>
+            </column>
+        </property>
+        <property name="telefoneContato" type="string">
+            <column name="telefoneContato" length="15" not-null="true">
+                <comment>TELEFONE CONTATO: Telefone para contato com o aluno.</comment>
+            </column>
+        </property>
+        <property name="telefoneEmergencia" type="string">
+            <column name="telefoneEmergencia" length="15" not-null="true">
+                <comment>TELEFONE EMERGENCIA: Telefone para contato em situa&#231;&#245;es de emerg&#234;ncia.</comment>
+            </column>
+        </property>
+        <property name="contatoEmergencia" type="string">
+            <column name="contatoEmergencia" length="120" not-null="true">
+                <comment>CONTATO EMERGENCIA: Nome do contato de emerg&#234;ncia.</comment>
+            </column>
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="120" not-null="true">
+                <comment>EMAIL: Email para contato com o aluno, para envio de informa&#231;&#245;es sobre a academia.</comment>
+            </column>
+        </property>
+        <property name="atestadoMedico" type="java.lang.Boolean">
+            <column name="atestadoMedico">
+                <comment>ATESTADO MEDICO: Atestado m&#233;dico, este campo devera ser preenchido, com o valor de FALSO, enquanto o aluno n&#227;o trouxer um atestado m&#233;dico
+                apto para pr&#225;tica de atividade f&#237;sica. Quando o aluno trouxer o atestado, o campo dever&#225; ser alterado para VERDADEIRO. O sistema dever&#225;
+                apresentar um alerta semanalmente, informando que existem alunos sem o devido atestado.</comment>
+            </column>
+        </property>
+        <property name="diaVencimento" type="int">
+            <column name="diaVencimento" not-null="true">
+                <comment>DIA DE VERNCIMENTO: Dever&#225; guardar o dia do vencimento da mensalidade do aluno.</comment>
+            </column>
+        </property>
+        <property name="numero" type="string">
+            <column name="numero" length="15" not-null="true" />
+        </property>
+        <property name="complemento" type="string">
+            <column name="complemento" length="45" />
+        </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
+        <set name="modalidadescontratadases" table="modalidadescontratadas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idAluno" not-null="true" />
+            </key>
+            <one-to-many class="model.Modalidadescontratadas" />
+        </set>
+    </class>
+</hibernate-mapping>

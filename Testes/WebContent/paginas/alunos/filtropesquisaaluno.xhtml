@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{login.title}</title>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+		<h:form id="form_filtro_pesquisa_aluno">
+			<h:panelGrid id="pnl_grid_filtro_pesquisa_aluno" columns="2"
+				columnClasses="label, value">
+
+				<p:outputLabel id="lbl_pesquisar_por" value="Pesquisar por:" />
+				<p:selectOneMenu id="sel_one_menu_tp_pesquisa"
+					value="#{filtroPesquisaAluno.filtroPesquisa.tipoPesquisa}">
+
+					<f:selectItems id="sel_items_tpPesquisa"
+						value="#{filtroPesquisaAluno.filtroPesquisa.tipoPesquisas}"
+						var="pesquisa" itemLabel="#{pesquisa.litPesquisa}"
+						itemValue="#{pesquisa}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel id="lbl_valor" value="Valor:" />
+				<p:inputText
+					value="#{filtroPesquisaAluno.filtroPesquisa.valorPesquisa}" />
+
+				<p:commandButton
+					actionListener="#{filtroPesquisaAluno.pesquisarAluno()}"
+					value="Pesquisar" ajax="false" update="resultTable" />
+				<p:commandButton actionListener="#{filtroPesquisaAluno.cancelar()}"
+					value="Cancelar" />
+				<f:metadata></f:metadata>
+			</h:panelGrid>
+
+			<p:dataTable id="resultTable"
+				rendered="#{filtroPesquisaAluno.showResultTable}" var="aluno"
+				value="#{filtroPesquisaAluno.filtroPesquisa.alunoLista}">
+
+				<p:column headerText="Id" style="text-align: center;">
+					<p:outputLabel value="#{aluno.idAlunos}"
+						style="text-align: center;" />
+				</p:column>
+
+				<p:column headerText="Nome Completo">
+					<h:outputText value="#{aluno.nomeCompleto}" />
+				</p:column>
+
+				<p:column headerText="Apelido" style="text-align: center;">
+					<h:outputText value="#{aluno.apelido}" style="text-align: center;" />
+				</p:column>
+
+				<p:column headerText="Cpf" style="text-align: center;">
+					<h:outputText value="#{aluno.cpf}" style="text-align: center;" />
+				</p:column>
+
+				<p:column headerText="Buscar" style="text-align: center;">
+					<p:commandButton style="text-align: center;" icon="ui-icon-search"
+						title="View"
+						actionListener="#{filtroPesquisaAluno.alterarAluno()}"
+						update="@all" ajax="false" >
+						
+						<!-- 						<f:setPropertyActionListener value="#{aluno}" -->
+						<!-- 							target="#{aluno}" /> -->
+
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
+

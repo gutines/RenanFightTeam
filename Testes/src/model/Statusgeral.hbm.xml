@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Statusgeral" table="statusgeral" catalog="academia" optimistic-lock="version">
+        <id name="idStatus" type="java.lang.Integer">
+            <column name="idStatus" />
+            <generator class="identity" />
+        </id>
+        <property name="descricaoStatus" type="string">
+            <column name="descricaoStatus" length="45" not-null="true">
+                <comment>Status</comment>
+            </column>
+        </property>
+        <set name="modalidadeses" table="modalidades" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="statusModalidade" not-null="true" />
+            </key>
+            <one-to-many class="model.Modalidades" />
+        </set>
+        <set name="alunoses" table="alunos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="statusAluno" not-null="true">
+                    <comment>STATUS DO ALUNO: Dever&#225; ser informado o status do aluno. 0 = Aluno ativo; 1 = Aluno inativo (Solicitou o cancelamento); 2 = Aluno bloqueado (Com
+                    mensalidades em atrazo), cada academia tratar&#225; de forma diferenciada,ex: Aluno bloqueado apenas depois de 3 meses de inadimpl&#234;ncia. 3 = Aluno
+                    expulso, Devido m&#225; conduta ou alguma falta grave e n&#227;o dever&#225; mais fazer parte do corpo de alunos.</comment>
+                </column>
+            </key>
+            <one-to-many class="model.Alunos" />
+        </set>
+        <set name="planoses" table="planos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stausPlano" />
+            </key>
+            <one-to-many class="model.Planos" />
+        </set>
+    </class>
+</hibernate-mapping>

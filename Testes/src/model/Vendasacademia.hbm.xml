@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Vendasacademia" table="vendasacademia" catalog="academia" optimistic-lock="version">
+        <composite-id name="id" class="model.VendasacademiaId">
+            <key-property name="idVenda" type="int">
+                <column name="idVenda" />
+            </key-property>
+            <key-property name="dataDaVenda" type="date">
+                <column name="dataDaVenda" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="produtos" class="model.Produtos" fetch="select">
+            <column name="idProduto" not-null="true" />
+        </many-to-one>
+        <property name="quantidade" type="java.lang.Integer">
+            <column name="quantidade" />
+        </property>
+        <property name="valorVenda" type="java.lang.Double">
+            <column name="valorVenda" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

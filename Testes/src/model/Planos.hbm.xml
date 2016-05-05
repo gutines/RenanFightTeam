@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Planos" table="planos" catalog="academia" optimistic-lock="version">
+        <id name="idPlano" type="java.lang.Integer">
+            <column name="idPlano" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="statusgeral" class="model.Statusgeral" fetch="select">
+            <column name="stausPlano" />
+        </many-to-one>
+        <property name="planoDescricao" type="string">
+            <column name="planoDescricao" length="45" not-null="true" />
+        </property>
+        <set name="alunoses" table="alunos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPlano" not-null="true">
+                    <comment>ID-PLANO: Plano escolhido pelo aluno, para cada plano ser&#225; executado um calculo diferente para contabiliza&#231;&#227;o do caixa.</comment>
+                </column>
+            </key>
+            <one-to-many class="model.Alunos" />
+        </set>
+    </class>
+</hibernate-mapping>

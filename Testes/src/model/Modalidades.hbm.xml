@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Modalidades" table="modalidades" catalog="academia" optimistic-lock="version">
+        <id name="idModalidade" type="java.lang.Integer">
+            <column name="idModalidade" />
+        </id>
+        <many-to-one name="statusgeral" class="model.Statusgeral" fetch="select">
+            <column name="statusModalidade" not-null="true" />
+        </many-to-one>
+        <property name="descricaoModalidade" type="string">
+            <column name="descricaoModalidade" length="45" not-null="true" />
+        </property>
+        <set name="modalidadescontratadases" table="modalidadescontratadas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idModalidade" not-null="true" />
+            </key>
+            <one-to-many class="model.Modalidadescontratadas" />
+        </set>
+    </class>
+</hibernate-mapping>

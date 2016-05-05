@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{novoUsuario.title}</title>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:growl id="growl" sticky="false" showDetail="true" />
+
+		<p:panel id="pnl_novousuario" header="#{novoUsuario.title}"
+			style="width:30%;margin: 0 auto;">
+
+			<h:outputLabel value="Digite o Usuário: " />
+			<br style="clear: left;" />
+			<p:inputText value="#{novoUsuario.usuario}" />
+
+			<br style="clear: left;" />
+			<h:outputLabel value="Digite a Senha:" />
+			<br style="clear: left;" />
+			<p:password value="#{novoUsuario.senha}" />
+
+			<br style="clear: left;" />
+			<h:outputLabel value="Confirme a Senha:" />
+			<br style="clear: left;" />
+			<p:password value="#{novoUsuario.senha_confirmacao}" />
+
+			<br style="clear: left;" />
+			<br style="clear: left;" />
+
+			<p:panelGrid columns="2"   >
+
+				<p:commandButton action="#{novoUsuario.inserirNovoUsuario()}"
+					value="Enviar" update="@all" />
+
+				<p:commandButton id="cancelar"
+					action="#{renanFightTeam.telaInicial()}" value="Cancelar"
+					ajax="false" />
+
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+
+</h:body>
+
+</html>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+ <class catalog="academia" name="model.DespesaspagasAcademia" table="despesaspagas_academia">
+  <composite-id class="model.DespesaspagasAcademiaId"
+   mapped="false" name="id" unsaved-value="undefined">
+   <key-property name="idDespesas" type="int">
+    <column name="idDespesas"/>
+   </key-property>
+   <key-property name="dataDePagamentoDespesas" type="date">
+    <column length="10" name="dataDePagamentoDespesas"/>
+   </key-property>
+  </composite-id>
+  <many-to-one class="model.Despesas" fetch="select"
+   insert="false" name="despesas" update="false">
+   <column name="idDespesas" not-null="true"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="parcelamento" type="boolean">
+   <column name="parcelamento" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="parcelasTotais" type="java.lang.Integer">
+   <column name="parcelasTotais"/>
+  </property>
+  <property generated="never" lazy="false" name="parcelaAtual" type="java.lang.Integer">
+   <column name="parcelaAtual"/>
+  </property>
+  <property generated="never" lazy="false" name="valorPago" type="java.lang.Double">
+   <column name="valorPago" precision="22" scale="0"/>
+  </property>
+ </class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{loginImpl.loginBean.TITLE}</title>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+		<h:form>
+			<p:growl id="messages" sticky="true" showDetail="true"/>
+			<p:panel header="#{loginImpl.loginBean.TITLE}"
+				style="width:30%;margin: 0 auto;">
+
+				<h:outputLabel value="Usuário: " />
+				<br style="clear: left;" />
+				<p:inputText value="#{loginImpl.loginBean.idUsuario}" />
+
+				<br style="clear: left;" />
+				<h:outputLabel value="Senha:" />
+				<br style="clear: left;" />
+				<p:password value="#{loginImpl.loginBean.senha}" />
+
+				<br style="clear: left;" />
+				<br style="clear: left;" />
+				<p:commandButton actionListener="#{loginImpl.validarLogin()}"
+					 value="Enviar" ajax="false"/>
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
+

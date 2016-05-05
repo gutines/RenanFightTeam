@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/01/2016 21:12:34 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+ <class catalog="academia" name="model.Endereco" table="endereco">
+  <id name="cep" type="string">
+   <column length="9" name="cep" unique="true"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="logradouro" type="string">
+   <column name="logradouro" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="nomeDaRua" type="string">
+   <column length="120" name="nomeDaRua" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="bairro" type="string">
+   <column length="120" name="bairro" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="cidade" type="string">
+   <column length="120" name="cidade" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="estado" type="string">
+   <column length="120" name="estado" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="pais" type="string">
+   <column length="120" name="pais" not-null="true"/>
+  </property>
+  <set fetch="select" inverse="true" lazy="true" name="alunoses"
+   sort="unsorted" table="alunos">
+   <key>
+    <column name="cep" not-null="true"/>
+   </key>
+   <one-to-many class="model.Alunos"/>
+  </set>
+ </class>
+</hibernate-mapping>
