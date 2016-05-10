@@ -1,10 +1,9 @@
 package br.com.menuInicial;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
-import br.com.alunos.AlunoNovoImpl;
+import br.com.alunos.alunoNovo.AlunoNovoImpl;
 import br.com.parametros.PaginasEnum;
 
 /**
@@ -21,31 +20,35 @@ import br.com.parametros.PaginasEnum;
  */
 
 @ManagedBean
-@SessionScoped
-public class MenuInicialImpl {
+@ViewScoped
+public class MenuInicialImpl implements java.io.Serializable {
 	
 	private MenuInicialBean menuInicialBean = new MenuInicialBean();
-	private AlunoNovoImpl alunoNovoImpl;
 	
-	@PostConstruct
-	public void init(){
-		System.out.println("Pagina: " + menuInicialBean.getComponente());
+	// Testes
+	
+	private String componente = "";
+	
+	
+//	@PostConstruct
+//	public void init(){
+//		System.out.println("Pagina: " + menuInicialBean.getComponente());
 //		menuInicial();
-	}
+//	}
 
 	/**
 	 * Metodos de controle dos componentes incorporados a pagina
 	 */
 	
 	public void menuInicial(){
-		menuInicialBean.setComponente(PaginasEnum.INITIAL_PAGE.getPagina());
+		componente = PaginasEnum.INITIAL_PAGE.getPagina();
 	}
 	
-	public void novoAluno(){
-		alunoNovoImpl = new AlunoNovoImpl();
-		menuInicialBean.setComponente(PaginasEnum.ALUNO_NOVO_COMP.getPagina());
+	public void alunoNovo() {
+		componente = PaginasEnum.ALUNO_NOVO_COMP.getPagina();
+
 	}
-	
+		
 	public void voltar(){
 		menuInicial();
 	}
@@ -69,12 +72,10 @@ public class MenuInicialImpl {
 		this.menuInicialBean = menuInicialBean;
 	}
 
-	public AlunoNovoImpl getAlunoNovoImpl() {
-		return alunoNovoImpl;
+	public String getComponente() {
+		return componente;
 	}
 
-	public void setAlunoNovoImpl(AlunoNovoImpl alunoNovo) {
-		this.alunoNovoImpl = alunoNovo;
-	}
+	
 
 }

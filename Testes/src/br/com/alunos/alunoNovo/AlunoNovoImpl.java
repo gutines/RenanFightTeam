@@ -1,5 +1,6 @@
-package br.com.alunos;
+package br.com.alunos.alunoNovo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
@@ -10,6 +11,8 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
 
+import br.com.alunos.AlunoDataBases;
+import br.com.parametros.PaginasEnum;
 import model.Alunos;
 import model.Endereco;
 import model.Modalidades;
@@ -30,7 +33,7 @@ import model.Planos;
  */
 @ManagedBean
 @ViewScoped
-public class AlunoNovoImpl {
+public class AlunoNovoImpl implements java.io.Serializable{
 
 	// Queries
 	private final String HQL_LISTAR_MODALIDADES = "from Modalidades";
@@ -49,8 +52,9 @@ public class AlunoNovoImpl {
 	
 	// Variaveis da classe
 	
-	private final String PARM_CEP = ":cep";
+	private final String PARM_CEP = "cep";
 	private UploadedFile file;
+	private String cep;
 
 	/**
 	 * Métodos de ação do aluno
@@ -61,9 +65,11 @@ public class AlunoNovoImpl {
 		listarModalidades();
 		listarPlanos();
 		
+		
 		// Iniciar campos da tela
 		
 		alunoNovo.setResponsavel(false);
+		
 	}
 
 	// Carregar próximo id de aluno disponível
@@ -83,11 +89,23 @@ public class AlunoNovoImpl {
 	
 	// Retorna cep solicitado
 	public void carregaCep(){
-		alunoNovo.setEndereco((Endereco) alunoDataBases.consultaParametro(HQL_BUSCA_CEP, PARM_CEP, alunoNovo.getEndereco().getCep()));
+		Endereco e = (Endereco) alunoDataBases.consultaParametro(HQL_BUSCA_CEP, PARM_CEP, getCep());
+		alunoNovo.setEndereco(e);
 	}
 	
 	public void save(){
-		
+		redirectPaginaInicial();
+	}
+	
+	private void redirectPaginaInicial() {
+
+		try {
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(PaginasEnum.MENU_INICIAL_RED.getPagina());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -159,4 +177,17 @@ public class AlunoNovoImpl {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
+    
+    public String alunoNovo() {
+    	return PaginasEnum.ALUNO_NOVO_COMP.getPagina();
+		
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 }

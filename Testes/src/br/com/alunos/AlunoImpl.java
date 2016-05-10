@@ -1,5 +1,7 @@
 package br.com.alunos;
 
+import br.com.alunos.alunoNovo.AlunoNovoImpl;
+
 /**
  * 
  * Classe Implementação do Aluno

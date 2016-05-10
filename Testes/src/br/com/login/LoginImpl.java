@@ -20,7 +20,7 @@ import model.Usuarios;
  */
 @RequestScoped
 @ManagedBean
-public class LoginImpl {
+public class LoginImpl implements java.io.Serializable{
 
 	// Queries
 	private final String CONSULTA_USUARIO = "from Usuarios where idUsuario = :idUsuario";
