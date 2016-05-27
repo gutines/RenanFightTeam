@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import beans.*;
+import br.com.alunos.cadastrarNovoAluno.AlunoNovoBean;
+import br.com.endereco.EnderecoBean;
 import hibernate.HibernateUtil;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -44,8 +48,7 @@ public class AlunoNovo implements java.io.Serializable {
 	private final String BUSCA_CEP = "from Endereco where cep = :cep";
 	private final String CARREGA_MODALIDADES = "from Modalidades";
 	private final String CARREGA_PLANOS = "from Planos";
-	private final String ID_ALUNO_DIPONIVEL = "from Alunos";
-
+	
 	// Objetos do aluno
 	private AlunoNovoBean aluno = new AlunoNovoBean();
 	private ArrayList<Modalidades> modalidades = new ArrayList<Modalidades>();
@@ -76,7 +79,7 @@ public class AlunoNovo implements java.io.Serializable {
 		buscaModalidades();
 		buscaPlanos();
 
-		aluno.setResponsavel(false);
+//		aluno.setResponsavel(false);
 
 	}
 
@@ -102,7 +105,7 @@ public class AlunoNovo implements java.io.Serializable {
 
 		setRenderizarEndereco(true);
 
-		aluno.setEndereco(e);
+//		aluno.setEndereco(e);
 
 	}
 
@@ -141,8 +144,9 @@ public class AlunoNovo implements java.io.Serializable {
 
 		auxIdAluno++;
 
-		aluno.setIdAluno(auxIdAluno.intValue());
+//		aluno.setIdAluno(auxIdAluno.intValue());
 
+		//
 	}
 
 	// Métodos
@@ -274,66 +278,66 @@ public class AlunoNovo implements java.io.Serializable {
 	}
 
 	private void inserirAluno() {
-		alunoModel.setIdAlunos(aluno.getIdAluno());
-		alunoModel.setNomeCompleto(aluno.getNomeCompleto());
-		alunoModel.setApelido(aluno.getApelido());
-		alunoModel.setDataDeNascimento(aluno.getDataDeNascimento());
-		alunoModel.setRg(aluno.getRg());
-		alunoModel.setCpf(aluno.getCpf());
-		alunoModel.setResponsavel(aluno.isResponsavel());
-
-		if (aluno.isResponsavel()) {
-			alunoModel.setNomeResponsavel(aluno.getNomeResponsavel());
-		}
-
-		// Busca Cep e seta objeto endereco diretamento no model
-		Query q = session.createQuery(BUSCA_CEP);
-		q.setParameter("cep", aluno.getEndereco().getCep());
-		alunoModel.setEndereco((Endereco) q.uniqueResult());
-
-		alunoModel.setNumero(aluno.getNumeroResidencia());
-		alunoModel.setComplemento(aluno.getComplemento());
-		alunoModel.setTelefoneContato(aluno.getTelefoneContato());
-		alunoModel.setTelefoneEmergencia(aluno.getTelefoneEmergencia());
-		alunoModel.setContatoEmergencia(aluno.getContatoEmergencia());
-		alunoModel.setEmail(aluno.getEmail());
-
-		alunoModel.setDiaVencimento(aluno.getDiaVencimeto());
-		alunoModel.setAtestadoMedico(aluno.isAtestadoMedico());
-		alunoModel.setPlanos(planoSelecionado);
-
-		alunoModel.setStatusgeral(statusGeral(1));
-
-		session.save(alunoModel);
+//		alunoModel.setIdAlunos(aluno.getIdAluno());
+//		alunoModel.setNomeCompleto(aluno.getNomeCompleto());
+//		alunoModel.setApelido(aluno.getApelido());
+//		alunoModel.setDataDeNascimento(aluno.getDataDeNascimento());
+//		alunoModel.setRg(aluno.getRg());
+//		alunoModel.setCpf(aluno.getCpf());
+//		alunoModel.setResponsavel(aluno.isResponsavel());
+//
+//		if (aluno.isResponsavel()) {
+//			alunoModel.setNomeResponsavel(aluno.getNomeResponsavel());
+//		}
+//
+//		// Busca Cep e seta objeto endereco diretamento no model
+//		Query q = session.createQuery(BUSCA_CEP);
+//		q.setParameter("cep", aluno.getEndereco().getCep());
+//		alunoModel.setEndereco((Endereco) q.uniqueResult());
+//
+//		alunoModel.setNumero(aluno.getNumeroResidencia());
+//		alunoModel.setComplemento(aluno.getComplemento());
+//		alunoModel.setTelefoneContato(aluno.getTelefoneContato());
+//		alunoModel.setTelefoneEmergencia(aluno.getTelefoneEmergencia());
+//		alunoModel.setContatoEmergencia(aluno.getContatoEmergencia());
+//		alunoModel.setEmail(aluno.getEmail());
+//
+//		alunoModel.setDiaVencimento(aluno.getDiaVencimeto());
+//		alunoModel.setAtestadoMedico(aluno.isAtestadoMedico());
+//		alunoModel.setPlanos(planoSelecionado);
+//
+//		alunoModel.setStatusgeral(statusGeral(1));
+//
+//		session.save(alunoModel);
 	}
 
 	private void atrelarModalidades() {
 
 		Date data = new java.sql.Date(new java.util.Date().getDate());
 
-		for (Iterator<Modalidades> iterator = modalidadesContratadas.iterator(); iterator
-				.hasNext();) {
-
-			Modalidades auxModalidades = (Modalidades) iterator.next();
-
-			/**
-			 * Area de inclusão da chave da tabela de relacionamento de
-			 * modalidades contratadas
-			 */
-
-			ModalidadescontratadasId mcid = new ModalidadescontratadasId(
-					auxModalidades.getIdModalidade(), aluno.getIdAluno());
-
-			Modalidadescontratadas mc = new Modalidadescontratadas();
-
-			data = new java.sql.Date(new java.util.Date().getTime());
-
-			mc.setId(mcid);
-			mc.setDataDeContratacao(data);
-
-			session.save(mc);
-
-		}
+//		for (Iterator<Modalidades> iterator = modalidadesContratadas.iterator(); iterator
+//				.hasNext();) {
+//
+//			Modalidades auxModalidades = (Modalidades) iterator.next();
+//
+//			/**
+//			 * Area de inclusão da chave da tabela de relacionamento de
+//			 * modalidades contratadas
+//			 */
+//
+//			ModalidadescontratadasId mcid = new ModalidadescontratadasId(
+//					auxModalidades.getIdModalidade(), aluno.getIdAluno());
+//
+//			Modalidadescontratadas mc = new Modalidadescontratadas();
+//
+//			data = new java.sql.Date(new java.util.Date().getTime());
+//
+//			mc.setId(mcid);
+//			mc.setDataDeContratacao(data);
+//
+//		session.save(mc);
+//
+//		}
 	}
 
 	private Statusgeral statusGeral(int status) {

@@ -1,22 +1,33 @@
-package br.com.alunos.alunoNovo;
+package br.com.alunos.cadastrarNovoAluno;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.hibernate.HibernateException;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
 
+import beans.FotoBean;
 import br.com.alunos.AlunoDataBases;
+import br.com.messages.MessagesEnum;
+import br.com.messages.MessagesErrorImp;
+import br.com.modalidades.ModalidadeDataBases;
 import br.com.parametros.PaginasEnum;
+import br.com.parametros.StatusGeralDb;
 import model.Alunos;
 import model.Endereco;
 import model.Modalidades;
+import model.Modalidadescontratadas;
+import model.ModalidadescontratadasId;
 import model.Planos;
+import model.Statusgeral;
 
 /**
  * 
@@ -26,14 +37,15 @@ import model.Planos;
  * 
  * Status: Em Desenvolvimento
  * 
- * Tasks
- * 	TODO AlunoNovoImpl: 1) Construir todo o tratamento de AlunoNovoImpl;
- *  TODO AlunoNovoImpl: 2) Espelhar a classe AlunoNovo antiga melhorando os tratamentos.
- * 
+ * Tasks: TODO AlunoNovoBean: 1) Construir todo o tratamento de AlunoNovoImpl;
+ * TODO AlunoNovoBean: 2) Espelhar a classe AlunoNovo antiga melhorando os
+ * tratamentos. TODO AlunoNovoBean 3) Método save() Tratar erro de Hibernate
+ * TODO AlunoNovoBean 4) Apresentação de Mensagens de sucessos e erros
  */
+
 @ManagedBean
 @ViewScoped
-public class AlunoNovoImpl implements java.io.Serializable{
+public class AlunoNovoBean implements java.io.Serializable {
 
 	// Queries
 	private final String HQL_LISTAR_MODALIDADES = "from Modalidades";
@@ -45,31 +57,29 @@ public class AlunoNovoImpl implements java.io.Serializable{
 	private AlunoDataBases alunoDataBases = new AlunoDataBases();
 	private Planos planoSelecionado = new Planos();
 	private ArrayList<Modalidades> modalidadesContratadas = new ArrayList<Modalidades>();
-
+	private FotoBean fotoBean = new FotoBean();
+	
 	// Listas
 	private ArrayList<Modalidades> listaModalidades = new ArrayList<Modalidades>();
 	private ArrayList<Planos> listaPlanos = new ArrayList<Planos>();
-	
+
 	// Variaveis da classe
-	
+
 	private final String PARM_CEP = "cep";
-	private UploadedFile file;
 	private String cep;
 
 	/**
 	 * Métodos de ação do aluno
 	 */
 
-	public AlunoNovoImpl() {
+	// Iniciar campos da tela
+	public AlunoNovoBean() {
 		buscaIdAlunoDisponivel();
 		listarModalidades();
 		listarPlanos();
-		
-		
-		// Iniciar campos da tela
-		
+
 		alunoNovo.setResponsavel(false);
-		
+
 	}
 
 	// Carregar próximo id de aluno disponível
@@ -86,29 +96,94 @@ public class AlunoNovoImpl implements java.io.Serializable{
 	private void listarPlanos() {
 		listaPlanos = alunoDataBases.retornarLista(HQL_LISTAR_PLANOS);
 	}
-	
+
 	// Retorna cep solicitado
-	public void carregaCep(){
-		Endereco e = (Endereco) alunoDataBases.consultaParametro(HQL_BUSCA_CEP, PARM_CEP, getCep());
-		alunoNovo.setEndereco(e);
+	public void carregaCep() {
+		try {
+			Endereco e = (Endereco) alunoDataBases.consultaParametro(
+					HQL_BUSCA_CEP, PARM_CEP, getCep());
+			alunoNovo.setEndereco(e);
+		} catch (HibernateException e) {
+			tratarErro(MessagesEnum.DATA_BASES_ERROR_DATA_BASES);
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
 	}
-	
-	public void save(){
+
+	public void save() {
+
+		try {
+			inserirAluno();
+			atrelarModalidades();
+			alunoDataBases.getSession().getTransaction().commit();
+		} catch (HibernateException e) {
+			tratarErro(MessagesEnum.DATA_BASES_ERROR_DATA_BASES);
+		}
+
+		redirectPaginaInicial();
+
+	}
+
+	public void cancelar() {
 		redirectPaginaInicial();
 	}
-	
+
+	// Redireciona pagina para o menu inicial
 	private void redirectPaginaInicial() {
 
 		try {
+
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect(PaginasEnum.MENU_INICIAL_RED.getPagina());
+					.redirect(PaginasEnum.MENU_INICIAL_COMP.getPagina());
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			tratarErro(MessagesEnum.FATAL_ERROR_REDIRECT_PAGE);
+
 		}
 	}
-	
-	
+
+	private void inserirAluno() {
+
+		StatusGeralDb sgdb = new StatusGeralDb();
+		alunoNovo.setStatusgeral((Statusgeral) sgdb.consultaParametro(
+				sgdb.getHQL_CONSULTA_STATUS(), sgdb.getPARM_STATUS(), "1"));
+		alunoDataBases.insertAluno(alunoNovo);
+
+	}
+
+	// Insere modalidades contratadas
+	private void atrelarModalidades() {
+
+		Date data = new java.sql.Date(new java.util.Date().getDate());
+
+		for (Iterator<Modalidades> iterator = modalidadesContratadas.iterator(); iterator
+				.hasNext();) {
+
+			Modalidades auxModalidades = (Modalidades) iterator.next();
+			ModalidadescontratadasId mcid = new ModalidadescontratadasId(
+					auxModalidades.getIdModalidade(), alunoNovo.getIdAlunos());
+
+			Modalidadescontratadas mc = new Modalidadescontratadas();
+			data = new java.sql.Date(new java.util.Date().getTime());
+
+			mc.setId(mcid);
+			mc.setDataDeContratacao(data);
+
+			alunoDataBases.getSession().save(mc);
+
+		}
+	}
+
+	// Método de tratamento de erros e mensagens
+	private void tratarErro(MessagesEnum me) {
+		MessagesErrorImp mei = new MessagesErrorImp();
+
+		mei.setMessageEnum(me);
+		mei.tratarMensagemErro();
+	}
+
 	/***********************
 	 * Getters and Setters *
 	 ***********************
@@ -144,6 +219,7 @@ public class AlunoNovoImpl implements java.io.Serializable{
 
 	public void setPlanoSelecionado(Planos planoSelecionado) {
 		this.planoSelecionado = planoSelecionado;
+		alunoNovo.setPlanos(planoSelecionado);
 	}
 
 	public ArrayList<Modalidades> getModalidadesContratadas() {
@@ -154,33 +230,10 @@ public class AlunoNovoImpl implements java.io.Serializable{
 			ArrayList<Modalidades> modalidadesContratadas) {
 		this.modalidadesContratadas = modalidadesContratadas;
 	}
-	
-	/**
-	 * Metodo controlador de passos do painel Wizard
-	 */
-	public String onFlowProcess(FlowEvent event) {
-		return event.getNewStep();
 
-	}
-	
-	public UploadedFile getFile() {
-        return file;
-    }
- 
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
-	
-    public void upload() {
-        if(file != null) {
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-    }
-    
-    public String alunoNovo() {
-    	return PaginasEnum.ALUNO_NOVO_COMP.getPagina();
-		
+	public String alunoNovo() {
+		return PaginasEnum.ALUNO_NOVO_COMP.getPagina();
+
 	}
 
 	public String getCep() {
@@ -189,5 +242,13 @@ public class AlunoNovoImpl implements java.io.Serializable{
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public FotoBean getFotoBean() {
+		return fotoBean;
+	}
+
+	public void setFotoBean(FotoBean fotoBean) {
+		this.fotoBean = fotoBean;
 	}
 }

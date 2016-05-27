@@ -33,7 +33,7 @@
 				<p:submenu label="Alunos" icon="ui-icon-person">
 					<p:submenu label="Cadastro" icon="ui-icon-tag">
 						<p:menuitem id="mni_novo_aluno" value="Novo" icon="ui-icon-plus"
-							action="#{menuInicialImpl.novoAluno()}" update="out_p_componente"
+							actionListener="#{renanFightTeam.novoAluno()}" update="out_p_componente"
 							ajax="false" />
 						<p:menuitem value="Consultar" icon="ui-icon-search"
 							action="#{renanFightTeam.filtroPesquisa()}"
@@ -83,8 +83,8 @@
 		<ui:debug />
 
 		<ui:insert>
-			<p:outputPanel id="out_p_componente" >
-				<ui:include src="#{menuInicialImpl.menuInicialBean.componente}" />
+			<p:outputPanel id="out_p_componente" autoUpdate="true" >
+				<ui:include src="#{renanFightTeam.componente}" />
 			</p:outputPanel>
 		</ui:insert>
 

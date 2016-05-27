@@ -24,7 +24,7 @@
 				<h:outputText value="" />
 				<h:outputText value="" />
 				<h:outputText value="" />
-				<p:graphicImage id="img_foto" value="#" height="170px" width="160px">
+				<p:graphicImage id="img_foto"  value="#" height="170px" width="160px">
 
 				</p:graphicImage>
 				<h:outputText value="" />
@@ -45,8 +45,7 @@
 
 				<h:outputText value="Id Aluno:" style="text-align:right" />
 
-				<h:inputText
-					value="#{cadastrarAlunoController.alunoController.aluno.idAlunos}"
+				<h:inputText value="#{alunoNovoBean.alunoNovo.idAlunos}"
 					disabled="true" size="10" />
 				<h:outputText value="" />
 				<h:outputText value="" />
@@ -54,18 +53,17 @@
 
 				<h:outputText value="Nome Completo:" style="text-align:right" />
 				<h:inputText id="campo_nome_completo"
-					value="#{cadastrarAlunoController.alunoController.aluno.nomeCompleto}"
-					maxlength="120" size="30" />
+					value="#{alunoNovoBean.alunoNovo.nomeCompleto}" maxlength="120"
+					size="30" />
 
 				<h:outputText value=" Apelido:" />
-				<h:inputText
-					value="#{cadastrarAlunoController.alunoController.aluno.apelido}"
+				<h:inputText value="#{alunoNovoBean.alunoNovo.apelido}"
 					maxlength="50" size="30" />
 				<h:outputText value="" />
 
 				<h:outputText value="Data de Nascimento:" />
 				<p:calendar id="mask"
-					value="#{cadastrarAlunoController.alunoController.aluno.dataDeNascimento}"
+					value="#{alunoNovoBean.alunoNovo.dataDeNascimento}"
 					pattern="dd/MM/yyyy" mask="true" timeZone="GMT-3" locale="pt_BR"
 					effect="bounce" size="10" showOn="button" />
 				<h:outputText value="" />
@@ -74,17 +72,15 @@
 
 				<h:outputText value="Rg:" />
 				<p:inputMask mask="99.999.999-*"
-					value="#{cadastrarAlunoController.alunoController.aluno.rg}"
-					size="15" />
+					value="#{alunoNovoBean.alunoNovo.rg}" size="15" />
 				<h:outputText value="Cpf:" />
 				<p:inputMask mask="999.999.999-99"
-					value="#{cadastrarAlunoController.alunoController.aluno.cpf}"
-					size="15" />
+					value="#{alunoNovoBean.alunoNovo.cpf}" size="15" />
 				<h:outputText value="" />
 
 				<h:outputText value="Responsável:" />
 				<h:selectBooleanCheckbox id="responsavel" immediate="true"
-					value="#{cadastrarAlunoController.alunoController.aluno.responsavel}">
+					value="#{alunoNovoBean.alunoNovo.responsavel}">
 					<p:ajax event="change" immediate="false"
 						update="lbl_responsavel inp_nomeResponsavel" />
 				</h:selectBooleanCheckbox>
@@ -94,18 +90,19 @@
 
 
 				<h:outputText id="lbl_responsavel" value="Nome Responsável:"
-					rendered="#{cadastrarAlunoController.alunoController.aluno.responsavel}" />
+					rendered="#{alunoNovoBean.alunoNovo.responsavel}" />
 				<h:inputText id="inp_nomeResponsavel" immediate="true"
-					value="#{cadastrarAlunoController.alunoController.aluno.nomeResponsavel}"
-					rendered="#{cadastrarAlunoController.alunoController.aluno.responsavel}" />
+					value="#{alunoNovoBean.alunoNovo.nomeResponsavel}"
+					rendered="#{alunoNovoBean.alunoNovo.responsavel}"
+					required="#{alunoNovoBean.alunoNovo.responsavel}" />
 
 
 				<h:outputText value=""
-					rendered="#{cadastrarAlunoController.alunoController.aluno.responsavel}" />
+					rendered="#{alunoNovoBean.alunoNovo.responsavel}" />
 				<h:outputText value=""
-					rendered="#{cadastrarAlunoController.alunoController.aluno.responsavel}" />
+					rendered="#{alunoNovoBean.alunoNovo.responsavel}" />
 				<h:outputText value=""
-					rendered="#{cadastrarAlunoController.alunoController.aluno.responsavel}" />
+					rendered="#{alunoNovoBean.alunoNovo.responsavel}" />
 
 
 				<h3>Endereço</h3>
@@ -116,8 +113,7 @@
 
 
 				<h:outputText value="Cep:" />
-				<p:inputText
-					value="#{cadastrarAlunoController.enderecoController.cep}" />
+				<p:inputText value="#{alunoNovoBean.cep}" />
 				<h:outputText value="" />
 				<h:outputText value="" />
 				<h:outputText value="" />
@@ -125,8 +121,8 @@
 
 				<h:outputText value="" />
 				<p:commandButton value="Buscar"
-					action="#{cadastrarAlunoController.enderecoController.bucarEnderecoCep()}"
-					ajax="false" update="fld_rua" process="fld_rua">
+					action="#{alunoNovoBean.carregaCep()}" ajax="false"
+					update="fld_rua" process="fld_rua">
 				</p:commandButton>
 				<h:outputText value="" />
 				<h:outputText value="" />
@@ -135,41 +131,37 @@
 
 				<h:outputText value="Rua:" />
 				<h:inputText id="fld_rua"
-					value="#{cadastrarAlunoController.enderecoController.endereco.nomeDaRua}"
+					value="#{alunoNovoBean.alunoNovo.endereco.nomeDaRua}"
 					disabled="true" />
 				<h:outputText value="Numero:" />
 				<h:inputText id="fld_numero"
-					value="#{cadastrarAlunoController.alunoController.aluno.numero}">
+					value="#{alunoNovoBean.alunoNovo.numero}">
 				</h:inputText>
 				<h:outputText value="" />
 
 
 				<h:outputText value="Complemento:" />
 				<h:inputText id="fld_complemento"
-					value="#{cadastrarAlunoController.alunoController.aluno.complemento}">
+					value="#{alunoNovoBean.alunoNovo.complemento}">
 				</h:inputText>
 				<h:outputText value="Bairro: " />
 				<h:inputText id="fld_bairro"
-					value="#{cadastrarAlunoController.enderecoController.endereco.bairro}"
-					disabled="true" />
+					value="#{alunoNovoBean.alunoNovo.endereco.bairro}" disabled="true" />
 				<h:outputText value="" />
 
 
 				<h:outputText value="Cidade: " />
 				<h:inputText id="fld_cidade"
-					value="#{cadastrarAlunoController.enderecoController.endereco.cidade}"
-					disabled="true" />
+					value="#{alunoNovoBean.alunoNovo.endereco.cidade}" disabled="true" />
 				<h:outputText value="Estado: " />
 				<h:inputText id="fld_estado"
-					value="#{cadastrarAlunoController.enderecoController.endereco.estado}"
-					disabled="true" />
+					value="#{alunoNovoBean.alunoNovo.endereco.estado}" disabled="true" />
 				<h:outputText value="" />
 
 
 				<h:outputText value="Pais:" />
 				<h:inputText id="fld_pais"
-					value="#{cadastrarAlunoController.enderecoController.endereco.pais}"
-					disabled="true" />
+					value="#{alunoNovoBean.alunoNovo.endereco.pais}" disabled="true" />
 				<h:outputText value="" />
 				<h:outputText value="" />
 				<h:outputText value="" />
@@ -185,19 +177,17 @@
 
 				<h:outputText value="Telefone:" />
 				<p:inputMask mask="99-99999999?9"
-					value="#{cadastrarAlunoController.alunoController.aluno.telefoneContato}" />
+					value="#{alunoNovoBean.alunoNovo.telefoneContato}" />
 				<h:outputText value="Emergência:" />
 				<p:inputMask mask="99-99999999?9"
-					value="#{cadastrarAlunoController.alunoController.aluno.telefoneEmergencia}" />
+					value="#{alunoNovoBean.alunoNovo.telefoneEmergencia}" />
 				<h:outputText value="" />
 
 
 				<h:outputText value="Contato Emergência:" />
-				<h:inputText
-					value="#{cadastrarAlunoController.alunoController.aluno.contatoEmergencia}" />
+				<h:inputText value="#{alunoNovoBean.alunoNovo.contatoEmergencia}" />
 				<h:outputText value="Email:" />
-				<h:inputText
-					value="#{cadastrarAlunoController.alunoController.aluno.email}" />
+				<h:inputText value="#{alunoNovoBean.alunoNovo.email}" />
 				<h:outputText value="" />
 
 
@@ -210,12 +200,11 @@
 
 				<h:outputText value="Modalidades: " />
 				<p:selectCheckboxMenu id="cbx_modalidades"
-					value="#{cadastrarAlunoController.modalidadesController.modalidadesContratadas}"
-					label="Selecione" converter="modalidadesConverter"
+					value="#{alunoNovoBean.modalidadesContratadas}" label="Selecione"
+					converter="modalidadesConverter"
 					title="Selecione as modalidades que serão praticadas">
-					<f:selectItems
-						value="#{cadastrarAlunoController.modalidadesController.listaDeModalidades}"
-						var="m" itemValue="#{m}" itemLabel="#{m.descricaoModalidade}" />
+					<f:selectItems value="#{alunoNovoBean.listaModalidades}" var="m"
+						itemValue="#{m}" itemLabel="#{m.descricaoModalidade}" />
 				</p:selectCheckboxMenu>
 				<h:outputText value="" />
 				<h:outputText value="" />
@@ -224,13 +213,11 @@
 
 				<h:outputText value="Planos: " />
 				<p:selectOneRadio id="sel_planos"
-					value="#{cadastrarAlunoController.planoController.planoContratado}"
-					label="Planos" converter="planosConverter">
+					value="#{alunoNovoBean.planoSelecionado}" label="Planos"
+					converter="planosConverter">
 
-					<f:selectItems
-						value="#{cadastrarAlunoController.planoController.listaDePlanos}"
-						var="plano" itemLabel="#{plano.planoDescricao}"
-						itemValue="#{plano}" />
+					<f:selectItems value="#{alunoNovoBean.listaPlanos}" var="plano"
+						itemLabel="#{plano.planoDescricao}" itemValue="#{plano}" />
 
 				</p:selectOneRadio>
 				<h:outputText value="" />
@@ -239,8 +226,7 @@
 
 
 				<h:outputText value="Dia de Vencimento: " />
-				<h:inputText
-					value="#{cadastrarAlunoController.alunoController.aluno.diaVencimento}" />
+				<h:inputText value="#{alunoNovoBean.alunoNovo.diaVencimento}" />
 				<h:outputText value="" />
 				<h:outputText value="" />
 				<h:outputText value="" />
@@ -248,23 +234,22 @@
 
 				<h:outputText value="Atestado Médico:" />
 				<h:selectBooleanCheckbox id="sbc_atestado_medico"
-					value="#{cadastrarAlunoController.alunoController.aluno.atestadoMedico}">
+					value="#{alunoNovoBean.alunoNovo.atestadoMedico}">
 				</h:selectBooleanCheckbox>
 				<h:outputText value="" />
 				<h:outputText value="" />
 				<h:outputText value="" />
 
-
 			</h:panelGrid>
 
 
+
 			<p:commandButton value="Enviar" ajax="false"
-				action="#{cadastrarAlunoController.cadastrarAluno()}"
-				process="@this" update="@form"  />
+				action="#{alunoNovoBean.save()}" process="@this" />
+			<!-- 			</p:panel> -->
 
 			<p:commandButton actionListener="#{renanFightTeam.voltar()}"
 				value="Cancelar" ajax="false"></p:commandButton>
-
 		</p:scrollPanel>
 	</h:form>
 </h:body>

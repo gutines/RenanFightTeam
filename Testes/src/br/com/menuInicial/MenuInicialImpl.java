@@ -3,7 +3,7 @@ package br.com.menuInicial;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.alunos.alunoNovo.AlunoNovoImpl;
+import br.com.alunos.cadastrarNovoAluno.AlunoNovoBean;
 import br.com.parametros.PaginasEnum;
 
 /**

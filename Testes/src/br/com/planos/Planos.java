@@ -1,6 +1,6 @@
 package br.com.planos;
 
-import br.com.parametros.StatusGeral;
+import br.com.parametros.StatusGeralDb;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class Planos {
 
 	private int idPlano;
     private String planoDescricao;
-    private StatusGeral statusgeral;
+    private StatusGeralDb statusgeral;
     
 	public int getIdPlano() {
 		return idPlano;
@@ -31,10 +31,10 @@ public class Planos {
 	public void setPlanoDescricao(String planoDescricao) {
 		this.planoDescricao = planoDescricao;
 	}
-	public StatusGeral getStatusgeral() {
+	public StatusGeralDb getStatusgeral() {
 		return statusgeral;
 	}
-	public void setStatusgeral(StatusGeral statusgeral) {
+	public void setStatusgeral(StatusGeralDb statusgeral) {
 		this.statusgeral = statusgeral;
 	}
 }

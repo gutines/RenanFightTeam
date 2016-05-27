@@ -1,6 +1,6 @@
 package br.com.alunos;
 
-import br.com.alunos.alunoNovo.AlunoNovoImpl;
+import br.com.alunos.cadastrarNovoAluno.AlunoNovoBean;
 
 /**
  * 
@@ -23,14 +23,14 @@ import br.com.alunos.alunoNovo.AlunoNovoImpl;
 
 public class AlunoImpl {
 
-	private AlunoNovoImpl alunoNovoImpl = new AlunoNovoImpl();
+	private AlunoNovoBean alunoNovoBean = new AlunoNovoBean();
 
-	public AlunoNovoImpl getAlunoNovoImpl() {
-		return alunoNovoImpl;
+	public AlunoNovoBean getAlunoNovoImpl() {
+		return alunoNovoBean;
 	}
 
-	public void setAlunoNovoImpl(AlunoNovoImpl alunoNovoImpl) {
-		this.alunoNovoImpl = alunoNovoImpl;
+	public void setAlunoNovoImpl(AlunoNovoBean alunoNovoBean) {
+		this.alunoNovoBean = alunoNovoBean;
 	}
 	
 	

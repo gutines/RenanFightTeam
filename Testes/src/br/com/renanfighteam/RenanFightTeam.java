@@ -29,7 +29,7 @@ public class RenanFightTeam implements java.io.Serializable{
 	private final String NOVO_ALUNO = "/paginas/alunos/alunonovo.xhtml";
 	private final String PAGINA_FUNDO = "/paginas/paginafundo.xhtml";
 	private final String NOVO_USUARIO = "/paginas/usuarios/novoUsuario.xhtml";
-	private final String RENAN_FIGHT_TEAM_PAGE = "/paginas/renanfightteam.jsf";
+	private final String RENAN_FIGHT_TEAM_PAGE = "/paginas/renanfightteam.xhtml";
 	
 	// Teste protótipo filtro de pesquisa
 	private final String FILTRO_PESQUISA_ALUNO = "/paginas/alunos/filtropesquisaaluno.xhtml";

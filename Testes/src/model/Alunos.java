@@ -31,7 +31,7 @@ public class Alunos  implements java.io.Serializable {
      private int diaVencimento;
      private String numero;
      private String complemento;
-     private byte[] foto;
+     private String foto;
      private Set modalidadescontratadases = new HashSet(0);
 
     public Alunos() {
@@ -53,7 +53,7 @@ public class Alunos  implements java.io.Serializable {
         this.diaVencimento = diaVencimento;
         this.numero = numero;
     }
-    public Alunos(Endereco endereco, Planos planos, Statusgeral statusgeral, String nomeCompleto, String apelido, Date dataDeNascimento, String rg, String cpf, Boolean responsavel, String nomeResponsavel, String telefoneContato, String telefoneEmergencia, String contatoEmergencia, String email, Boolean atestadoMedico, int diaVencimento, String numero, String complemento, byte[] foto, Set modalidadescontratadases) {
+    public Alunos(Endereco endereco, Planos planos, Statusgeral statusgeral, String nomeCompleto, String apelido, Date dataDeNascimento, String rg, String cpf, Boolean responsavel, String nomeResponsavel, String telefoneContato, String telefoneEmergencia, String contatoEmergencia, String email, Boolean atestadoMedico, int diaVencimento, String numero, String complemento, String foto, Set modalidadescontratadases) {
        this.endereco = endereco;
        this.planos = planos;
        this.statusgeral = statusgeral;
@@ -209,11 +209,11 @@ public class Alunos  implements java.io.Serializable {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    public byte[] getFoto() {
+    public String getFoto() {
         return this.foto;
     }
     
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
     public Set getModalidadescontratadases() {
