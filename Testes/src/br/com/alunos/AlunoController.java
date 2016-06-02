@@ -2,12 +2,13 @@ package br.com.alunos;
 
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import model.Alunos;
-import br.com.endereco.EnderecoCompletoBean;
 import br.com.endereco.EnderecoController;
-import br.com.modalidades.ModalidadesBean;
 import br.com.modalidades.ModalidadesController;
-import br.com.planos.PlanoBean;
 import br.com.planos.PlanoController;
 
 /************************************************************************
@@ -30,16 +31,20 @@ import br.com.planos.PlanoController;
  *	                                                                    *
  *	                                                                    * 
  ************************************************************************/
+@ManagedBean
+@ViewScoped
 public class AlunoController {
 	
 	private Alunos aluno = new Alunos();
+	private ArrayList<Alunos> alunoLista = new ArrayList<Alunos>();
 	private AlunosDAO dao = new AlunosDAO();
 	
+	private EnderecoController enderecoController = new EnderecoController();
+	private ModalidadesController modalidadesController = new ModalidadesController() ;
+	private PlanoController planoController = new PlanoController();
 	
-	public AlunoController(){
-		proximoIdAluno();
-	}
-	
+		
+//	@PostConstruct
 	public void proximoIdAluno(){
 			
 		aluno.setIdAlunos(dao.proximoIdAluno());
@@ -55,6 +60,14 @@ public class AlunoController {
 		this.aluno = aluno;
 	}
 
+	public ArrayList<Alunos> getAlunoLista() {
+		return alunoLista;
+	}
+
+	public void setAlunoLista(ArrayList<Alunos> alunoLista) {
+		this.alunoLista = alunoLista;
+	}
+
 	public AlunosDAO getDao() {
 		return dao;
 	}
@@ -63,9 +76,29 @@ public class AlunoController {
 		this.dao = dao;
 	}
 
+	public EnderecoController getEnderecoController() {
+		return enderecoController;
+	}
 
-			
-	
+	public void setEnderecoController(EnderecoController enderecoController) {
+		this.enderecoController = enderecoController;
+	}
+
+	public ModalidadesController getModalidadesController() {
+		return modalidadesController;
+	}
+
+	public void setModalidadesController(ModalidadesController modalidadesController) {
+		this.modalidadesController = modalidadesController;
+	}
+
+	public PlanoController getPlanoController() {
+		return planoController;
+	}
+
+	public void setPlanoController(PlanoController planoController) {
+		this.planoController = planoController;
+	}
 
 	
 }

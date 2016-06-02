@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{index.title}</title>
+</h:head>
+
+<h:body>
+	<h:form id="frm_novo_aluno">
+
+		<p:scrollPanel header="Cadastro de Aluno">
+
+
+			<h:panelGrid columns="5" columnClasses="label, value"
+				id="dadosPessoais" border="">
+
+
+				<!-- 					Dados Pessoais -->
+
+				<!-- 				<h:outputText value="" /> -->
+				<!-- 				<h:outputText value="" /> -->
+				<!-- 				<h:outputText value="" /> -->
+
+				<!-- 				</p:graphicImage> -->
+				<!-- 				<h:outputText value="" /> -->
+				<!-- 				<h:outputText value="" /> -->
+				<!-- 				<h:outputText value="" /> -->
+				<!-- 				<h:outputText value="" /> -->
+
+				<h3>Dados Pessoais</h3>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Id Aluno:" style="text-align:right" />
+
+				<h:inputText id="txf_id_aluno"
+					value="#{alunoController.aluno.idAlunos}" disabled="true" size="10" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+				<h:outputText value="Nome Completo:" style="text-align:right" />
+				<h:inputText id="campo_nome_completo"
+					value="#{alunoController.aluno.nomeCompleto}" maxlength="120"
+					size="30" />
+
+				<h:outputText value=" Apelido:" />
+				<h:inputText value="#{alunoController.aluno.apelido}" maxlength="50"
+					size="30" />
+				<h:outputText value="" />
+
+				<h:outputText value="Data de Nascimento:" />
+				<p:calendar id="mask"
+					value="#{alunoController.aluno.dataDeNascimento}"
+					pattern="dd/MM/yyyy" mask="true" timeZone="GMT-3" locale="pt_BR"
+					effect="bounce" size="10" showOn="button" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+				<h:outputText value="Rg:" />
+				<p:inputMask mask="99.999.999-*" value="#{alunoController.aluno.rg}"
+					size="15" />
+				<h:outputText value="Cpf:" />
+				<p:inputMask mask="999.999.999-99"
+					value="#{alunoController.aluno.cpf}" size="15" />
+				<h:outputText value="" />
+
+				<h:outputText value="Responsável:" />
+				<h:selectBooleanCheckbox id="responsavel" immediate="true"
+					value="#{alunoController.aluno.responsavel}">
+					<p:ajax event="change" immediate="false"
+						update="lbl_responsavel inp_nomeResponsavel" />
+				</h:selectBooleanCheckbox>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText id="lbl_responsavel" value="Nome Responsável:"
+					rendered="#{alunoController.aluno.responsavel}" />
+				<h:inputText id="inp_nomeResponsavel" immediate="true"
+					value="#{alunoController.aluno.nomeResponsavel}"
+					rendered="#{alunoController.aluno.responsavel}" />
+
+
+				<h:outputText value=""
+					rendered="#{alunoController.aluno.responsavel}" />
+				<h:outputText value=""
+					rendered="#{alunoController.aluno.responsavel}" />
+				<h:outputText value=""
+					rendered="#{alunoController.aluno.responsavel}" />
+
+
+				<h3>Endereço</h3>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Cep:" />
+
+				<p:inputMask mask="99999-999"
+					value="#{alunoController.enderecoController.cep}" size="9" />
+
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="" />
+				<p:commandButton value="Buscar"
+					action="#{alunoController.enderecoController.bucarEnderecoCep()}"
+					ajax="false" update="fld_rua" process="fld_rua">
+				</p:commandButton>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Rua:" />
+				<h:inputText id="fld_rua"
+					value="#{alunoController.enderecoController.endereco.nomeDaRua}"
+					disabled="true" />
+				<h:outputText value="Numero:" />
+				<h:inputText id="fld_numero" value="#{alunoController.aluno.numero}">
+				</h:inputText>
+				<h:outputText value="" />
+
+
+				<h:outputText value="Complemento:" />
+				<h:inputText id="fld_complemento"
+					value="#{alunoController.aluno.complemento}">
+				</h:inputText>
+				<h:outputText value="Bairro: " />
+				<h:inputText id="fld_bairro"
+					value="#{alunoController.enderecoController.endereco.bairro}"
+					disabled="true" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Cidade: " />
+				<h:inputText id="fld_cidade"
+					value="#{alunoController.enderecoController.endereco.cidade}"
+					disabled="true" />
+				<h:outputText value="Estado: " />
+				<h:inputText id="fld_estado"
+					value="#{alunoController.enderecoController.endereco.estado}"
+					disabled="true" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Pais:" />
+				<h:inputText id="fld_pais"
+					value="#{alunoController.enderecoController.endereco.pais}"
+					disabled="true" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+
+				<h3>Contato</h3>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Telefone:" />
+				<p:inputMask mask="99-99999999?9"
+					value="#{alunoController.aluno.telefoneContato}" />
+				<h:outputText value="Emergência:" />
+				<p:inputMask mask="99-99999999?9"
+					value="#{alunoController.aluno.telefoneEmergencia}" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Contato Emergência:" />
+				<h:inputText value="#{alunoController.aluno.contatoEmergencia}" />
+				<h:outputText value="Email:" />
+				<h:inputText value="#{alunoController.aluno.email}" />
+				<h:outputText value="" />
+
+
+				<h3>Matricula</h3>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Modalidades: " />
+				<p:selectCheckboxMenu id="cbx_modalidades"
+					value="#{alunoController.modalidadesController.modalidadesContratadas}"
+					label="Selecione" converter="modalidadesConverter"
+					title="Selecione as modalidades que serão praticadas">
+					<f:selectItems
+						value="#{alunoController.modalidadesController.listaDeModalidades}"
+						var="m" itemValue="#{m}" itemLabel="#{m.descricaoModalidade}" />
+				</p:selectCheckboxMenu>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Planos: " />
+				<p:selectOneRadio id="sel_planos"
+					value="#{alunoController.planoController.planoContratado}"
+					label="Planos" converter="planosConverter">
+
+					<f:selectItems
+						value="#{alunoController.planoController.listaDePlanos}"
+						var="plano" itemLabel="#{plano.planoDescricao}"
+						itemValue="#{plano}" />
+
+				</p:selectOneRadio>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Dia de Vencimento: " />
+				<h:inputText value="#{alunoController.aluno.diaVencimento}" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+				<h:outputText value="Atestado Médico:" />
+				<h:selectBooleanCheckbox id="sbc_atestado_medico"
+					value="#{alunoController.aluno.atestadoMedico}">
+				</h:selectBooleanCheckbox>
+				<h:outputText value="" />
+				<h:outputText value="" />
+				<h:outputText value="" />
+
+
+			</h:panelGrid>
+
+		</p:scrollPanel>
+	</h:form>
+</h:body>
+
+</html>

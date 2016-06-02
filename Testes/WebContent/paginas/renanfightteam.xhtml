@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,11 +12,12 @@
 <h:body>
 
 	<h:form id="frm_rft">
-		<p:outputPanel >
+		<p:outputPanel>
 			<p:growl id="messages" />
 
 			<p:menubar>
 				<p:submenu label="Sistema" icon="ui-icon-document">
+					
 					<p:submenu label="Usuarios" icon="ui-icon-contact">
 						<p:menuitem id="mni_novo_usuario" value="Novo" icon="ui-icon-plus"
 							action="#{renanFightTeam.novoUsuario()}"
@@ -27,28 +29,35 @@
 
 					<p:menuitem value="Open" url="#" />
 					<p:separator />
+					
 					<p:menuitem value="Quit" url="#" />
 				</p:submenu>
 
 				<p:submenu label="Alunos" icon="ui-icon-person">
 					<p:submenu label="Cadastro" icon="ui-icon-tag">
+
 						<p:menuitem id="mni_novo_aluno" value="Novo" icon="ui-icon-plus"
-							actionListener="#{renanFightTeam.novoAluno()}" update="out_p_componente"
-							ajax="false" />
+							actionListener="#{renanFightTeam.novoAluno()}"
+							update="out_p_componente" ajax="false" />
+
 						<p:menuitem value="Consultar" icon="ui-icon-search"
 							action="#{renanFightTeam.filtroPesquisa()}"
 							update="out_p_componente" ajax="false" />
+
 						<p:menuitem value="Alterar" icon="ui-icon-pencil"
 							action="#{renanFightTeam.filtroPesquisa()}"
 							update="out_p_componente" ajax="false" />
+
 						<p:menuitem value="Excluir" icon="ui-icon-trash"
 							action="#{renanFightTeam.filtroPesquisa()}"
 							update="out_p_componente" ajax="false" />
+
 					</p:submenu>
 				</p:submenu>
 
 				<p:submenu label="Help" icon="ui-icon-help">
-					<p:menuitem value="Contents" url="#" />
+					<p:menuitem value="Teste" ajax="false"
+						actionListener="#{renanFightTeam.testeFoto()}" />
 					<p:submenu label="Search" icon="ui-icon-search">
 						<p:submenu label="Text">
 							<p:menuitem value="Workspace" url="#" />
@@ -83,7 +92,7 @@
 		<ui:debug />
 
 		<ui:insert>
-			<p:outputPanel id="out_p_componente" autoUpdate="true" >
+			<p:outputPanel id="out_p_componente" autoUpdate="true">
 				<ui:include src="#{renanFightTeam.componente}" />
 			</p:outputPanel>
 		</ui:insert>

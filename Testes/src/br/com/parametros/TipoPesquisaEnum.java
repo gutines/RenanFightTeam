@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.alunos;
+package br.com.parametros;
 
 /**
  * @author Augusto
@@ -9,7 +9,7 @@ package br.com.alunos;
  * TODO 
  *
  */
-public enum TipoPesquisa {
+public enum TipoPesquisaEnum {
 	
 	PESQUISA_ID("ID", 1), PESQUISA_NOME("Nome", 2), PESQUISA_CPF("CPF", 3);
 	
@@ -17,7 +17,7 @@ public enum TipoPesquisa {
 	private final int codPsquisa;
 
 	
-	private TipoPesquisa(String litPesquisa, int codPsquisa) {
+	private TipoPesquisaEnum(String litPesquisa, int codPsquisa) {
 		this.litPesquisa = litPesquisa;
 		this.codPsquisa = codPsquisa;
 	}

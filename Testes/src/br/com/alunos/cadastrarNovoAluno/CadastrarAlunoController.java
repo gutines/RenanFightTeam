@@ -2,6 +2,7 @@ package br.com.alunos.cadastrarNovoAluno;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -36,26 +37,26 @@ import br.com.planos.PlanoController;
 @ViewScoped
 public class CadastrarAlunoController {
 
-	private AlunoController alunoController = new AlunoController();
-	private EnderecoController enderecoController = new EnderecoController();
-	private ModalidadesController modalidadesController = new ModalidadesController() ;
-	private PlanoController planoController = new PlanoController();
-	
-	
+//	private AlunoController alunoController = new AlunoController();
+//	private EnderecoController enderecoController = new EnderecoController();
+//	private ModalidadesController modalidadesController = new ModalidadesController() ;
+//	private PlanoController planoController = new PlanoController();
+//	
+//	@PostConstruct
+//	public void init(){
+//		alunoController.proximoIdAluno();
+//	}
 			
-	public void cadastrarAluno(){
-		
-		alunoController.getAluno().setEndereco(enderecoController.getEndereco());
-		alunoController.getAluno().setPlanos(planoController.getPlanoContratado());	
+	public void cadastrarAluno(AlunoController alunoController){
 		
 		StatusUtil su = new StatusUtil();
 		
+		alunoController.getAluno().setEndereco(alunoController.getEnderecoController().getEndereco());
+		alunoController.getAluno().setPlanos(alunoController.getPlanoController().getPlanoContratado());
 		alunoController.getAluno().setStatusgeral(su.getDao().statusAtivo());
 		alunoController.getDao().cadastrarAluno(alunoController.getAluno());
-		
 		alunoController.getDao().comitar();
-	
-		modalidadesController.atrelarModalidade(alunoController.getAluno());	
+		alunoController.getModalidadesController().atrelarModalidade(alunoController.getAluno());
 		
 		redirectPaginaInicial();
 		
@@ -75,37 +76,37 @@ public class CadastrarAlunoController {
 		
 	}
 	
-	public ModalidadesController getModalidadesController() {
-		return modalidadesController;
-	}
-
-	public void setModalidadesController(
-			ModalidadesController modalidadesController) {
-		this.modalidadesController = modalidadesController;
-	}
-
-	public AlunoController getAlunoController() {
-		return alunoController;
-	}
-
-	public void setAlunoController(AlunoController alunoController) {
-		this.alunoController = alunoController;
-	}
-
-	public PlanoController getPlanoController() {
-		return planoController;
-	}
-
-	public void setPlanoController(PlanoController planoController) {
-		this.planoController = planoController;
-	}
-
-	public EnderecoController getEnderecoController() {
-		return enderecoController;
-	}
-
-	public void setEnderecoController(EnderecoController enderecoController) {
-		this.enderecoController = enderecoController;
-	}
+//	public ModalidadesController getModalidadesController() {
+//		return modalidadesController;
+//	}
+//
+//	public void setModalidadesController(
+//			ModalidadesController modalidadesController) {
+//		this.modalidadesController = modalidadesController;
+//	}
+//
+//	public AlunoController getAlunoController() {
+//		return alunoController;
+//	}
+//
+//	public void setAlunoController(AlunoController alunoController) {
+//		this.alunoController = alunoController;
+//	}
+//
+//	public PlanoController getPlanoController() {
+//		return planoController;
+//	}
+//
+//	public void setPlanoController(PlanoController planoController) {
+//		this.planoController = planoController;
+//	}
+//
+//	public EnderecoController getEnderecoController() {
+//		return enderecoController;
+//	}
+//
+//	public void setEnderecoController(EnderecoController enderecoController) {
+//		this.enderecoController = enderecoController;
+//	}
 
 }

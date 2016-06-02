@@ -4,42 +4,43 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
+<h:head>p
 	<title>#{login.title}</title>
 </h:head>
 
 <h:body>
 
-	<ui:composition>
-		<h:form id="form_filtro_pesquisa_aluno">
+	<ui:composition >
+		<h:form id="form_filtro_pesquisa_aluno" >
+
 			<h:panelGrid id="pnl_grid_filtro_pesquisa_aluno" columns="2"
 				columnClasses="label, value">
 
 				<p:outputLabel id="lbl_pesquisar_por" value="Pesquisar por:" />
 				<p:selectOneMenu id="sel_one_menu_tp_pesquisa"
-					value="#{filtroPesquisaAluno.filtroPesquisa.tipoPesquisa}">
+					value="#{filtroAlunoController.tipoDePesquisa}">
+
 
 					<f:selectItems id="sel_items_tpPesquisa"
-						value="#{filtroPesquisaAluno.filtroPesquisa.tipoPesquisas}"
-						var="pesquisa" itemLabel="#{pesquisa.litPesquisa}"
-						itemValue="#{pesquisa}" />
+						value="#{filtroAlunoController.listaTipoDePesquisa}" var="pesquisa"
+						itemLabel="#{pesquisa.litPesquisa}" itemValue="#{pesquisa}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel id="lbl_valor" value="Valor:" />
-				<p:inputText
-					value="#{filtroPesquisaAluno.filtroPesquisa.valorPesquisa}" />
+				<p:inputText value="#{filtroAlunoController.valorPesquisa}" />
 
 				<p:commandButton
-					actionListener="#{filtroPesquisaAluno.pesquisarAluno()}"
+					actionListener="#{filtroAlunoController.pesquisar()}"
 					value="Pesquisar" ajax="false" update="resultTable" />
-				<p:commandButton actionListener="#{filtroPesquisaAluno.cancelar()}"
-					value="Cancelar" />
+				<p:commandButton
+					actionListener="#{filtroAlunoController.cancelar()}"
+					value="Cancelar" ajax="false"/>
 				<f:metadata></f:metadata>
 			</h:panelGrid>
 
 			<p:dataTable id="resultTable"
-				rendered="#{filtroPesquisaAluno.showResultTable}" var="aluno"
-				value="#{filtroPesquisaAluno.filtroPesquisa.alunoLista}">
+				rendered="#{filtroAlunoController.showResultTable}" var="aluno"
+				value="#{filtroAlunoController.alunoController.alunoLista}">
 
 				<p:column headerText="Id" style="text-align: center;">
 					<p:outputLabel value="#{aluno.idAlunos}"
@@ -62,8 +63,8 @@
 					<p:commandButton style="text-align: center;" icon="ui-icon-search"
 						title="View"
 						actionListener="#{filtroPesquisaAluno.alterarAluno()}"
-						update="@all" ajax="false" >
-						
+						update="@all" ajax="false">
+
 						<!-- 						<f:setPropertyActionListener value="#{aluno}" -->
 						<!-- 							target="#{aluno}" /> -->
 
@@ -72,6 +73,11 @@
 
 			</p:dataTable>
 
+		</h:form>
+		
+		<h:form>
+		
+		
 		</h:form>
 
 	</ui:composition>

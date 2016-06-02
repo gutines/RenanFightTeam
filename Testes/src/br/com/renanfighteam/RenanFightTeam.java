@@ -31,9 +31,12 @@ public class RenanFightTeam implements java.io.Serializable{
 	private final String NOVO_USUARIO = "/paginas/usuarios/novoUsuario.xhtml";
 	private final String RENAN_FIGHT_TEAM_PAGE = "/paginas/renanfightteam.xhtml";
 	
+	
+	
 	// Teste protótipo filtro de pesquisa
 	private final String FILTRO_PESQUISA_ALUNO = "/paginas/alunos/filtropesquisaaluno.xhtml";
 
+	private final String TESTE_FOTO = "/paginas/teste/testes.xhtml";
 	// Objeto de sessao
 	Session session;
 
@@ -118,4 +121,7 @@ public class RenanFightTeam implements java.io.Serializable{
 		setComponente(PAGINA_FUNDO);
 	}
 
+	public void testeFoto(){
+		setComponente(TESTE_FOTO);
+	}
 }
